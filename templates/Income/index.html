@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+     
+    <div class="row">
+        <div class="col-md-10">
+    
+  
+
+    
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item">Income</li>
+                  <li class="breadcrumb-item active" aria-current="page">My Income</li>
+                </ol>
+              </nav>
+              
+        </div>
+        <div class="col-md-2">
+            <a href="{% url 'add-income'%}" class="btn btn-primary">Add Income</a>
+        </div>
+    </div>
+    
+    
+</div>
+<!--export pdf-->
+<div class="d-flex  bd-highlight">
+ 
+  <div class="p-2 bd-highlight"><a href="{% url 'export-pdf' %}" class="btn btn-info">Export pdf</a></div>
+  
+</div>
+<!--Search field--->
+<div class="container">
+    
+      <form class="form-inline my-2 my-lg-0 float-right" action="{% url 'search' %}" method="POST">
+        {% csrf_token %}
+        <input class="form-control mr-sm-2" type="search" placeholder="Search by Source" aria-label="Search" name="search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    
+</div>
+
+{% if income.count %}
+<div class="container py-5 table-responsive">
+    <table class="table table-hover table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Amount</th>
+            <th scope="col">Description</th>
+            <th scope="col">Source</th>
+            <th scope="col">Date</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+       {% for item in page_obj %}
+       <tr>
+        <td>{{item.amount}}</td>
+        <td>{{item.description}}</td>
+        <td>{{item.source}}</td>
+        <td>{{item.date}}</td>
+        <td><a href="{% url 'edit-income' item.id %}" class="btn btn-secondary btn-sm">EDIT</a>
+            <a  href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal">DELETE</a>
+        </td>
+ 
+
+       </tr>
+        
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Warning</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are You Sure ?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+          <a href="{% url 'delete-income' item.id %}" class="btn btn-danger">YES</a>
+        </div>
+      </div>
+    </div>
+  </div>
+       {% endfor %}
+        </tbody>
+      </table>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4">
+            <div>
+                showing page {{page_obj.number}} of {{page_obj.paginator.num_pages}}
+                    </div>
+        </div>
+        <div class="col-lg-8">
+            <ul class="pagination align-right float-right mr-auto">
+                {% if page_obj.has_previous %}
+                <li {% if page_obj.number == 1 %} class="page-item active" {% endif %}><a class="page-link" href="?page=1">1</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+                {% endif %}
+                {% if page_obj.has_next %}
+                <li  class="page-item "><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a></li>
+                {% endif %}
+      
+            </ul>
+        </div>
+    </div>
+    
+            
+</div>
+  
+</div>
+ 
+ 
+ 
+{% endif %}
+{% if search %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="alert alert-info text-center text-lead lead" role="alert">
+  Sorry,Source not found
+</div>
+{%endif%}
+ 
+ 
+{% endblock content %}

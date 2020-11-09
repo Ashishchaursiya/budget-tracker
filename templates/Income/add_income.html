@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+ 
+{% block content%}
+<div class="container">
+    <h3 class="text-muted py-2">ADD Income</h3>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'income' %}">Income</a></li>
+          <li class="breadcrumb-item active" aria-current="page"> Add Income</li>
+        </ol>
+      </nav>
+    <form action="{% url 'add-income' %}" method="POST">
+        {%csrf_token%}
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="">Amount</label>
+                    <input type="number" class="form-control" name="amount" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="">Date of Income</label>
+                    <input type="date" class="form-control" name="date" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="">Description</label>
+                    <input type="text" class="form-control" name="description" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="">Source</label>
+                    <select class ="form-control" name="source" required>
+                        {% for item in source %}
+                        <option name='source' value="{{item.name}}">
+                            {{item.name}}
+                        </option>
+                        {% endfor %}
+                       
+                
+                    </select>
+                  </div>
+                  <input type="submit" value="submit" class="btn btn-primary">
+            </div>
+        </div>
+
+
+    </form>
+
+</div>
+ 
+ 
+{% endblock content%}
+

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style>
+@page{
+    size: "A4";
+    margin:2.5cm 1.5cm 3.5cm 1.5cm;
+    @top-center{
+        content: "COMPANY NAME";
+    }
+    @bottom-right {
+        content:"Page " counter(page) " of " counter(pages);
+    }
+}
+</style>
+ 
+
+    <title>Pdf Output</title>
+  </head>
+  <body>
+    
+<img style="margin:auto ;" src="https://tppwebsolutions.com/wp-content/uploads/logo-demo3.png"/>
+ <h2> Expense List</h2>
+ 
+  
+  <table class="table">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">No</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Category</th>
+        <th scope="col">Description</th>
+        <th scope="col">Date</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for expense in expenses %}
+        <tr>
+       
+            <td>{{forloop.counter}}</td>
+            <td>{{expense.amount}}</td>
+            <td>{{expense.category}}</td>
+            <td>{{expense.description}}</td>
+            <td>{{expense.date}}</td>
+            
+          </tr>
+
+        {% endfor%}
+        <tr>
+            <td>Total</td>
+            <td>{{total}}</td>
+        </tr>
+    
+    
+    
+    </tbody>
+  </table>
+  
+  </body>
+</html>
