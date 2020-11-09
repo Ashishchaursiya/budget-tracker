@@ -12,6 +12,10 @@ from weasyprint import HTML
 
 
 # Create your views here.
+def index(requests):
+    return render(requests,'expense/home.html')
+
+
 
 @login_required(login_url='/authentication/login')
 def home(requests):
