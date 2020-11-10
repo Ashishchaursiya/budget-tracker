@@ -142,13 +142,15 @@ MESSAGE_TAGS = {
 }
 
 #email stuff
-EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_USE_TLS=True
+DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
 EMAIL_PORT = 587
-EMAIL_HOST_USER = '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'
-EMAIL_HOST_PASSWORD = 'qwertyuiop123456'
-EMAIL_USE_TLS = True
+EMAIL_HOST_PASSWORD =os.environ.get('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = 'Expense Team <noreply@example.com>'
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+ 
 
 
 django_heroku.settings(locals())
