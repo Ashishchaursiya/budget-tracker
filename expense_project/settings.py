@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
-import django_heroku
+ 
 import dj_database_url
 from django.contrib import messages
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -145,11 +145,11 @@ MESSAGE_TAGS = {
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'chaurasiyaashish383@gmail.com'
-EMAIL_HOST_PASSWORD = 'hnnerskggwcvoxnr'
+EMAIL_HOST_PASSWORD = 'gpzlqctywzfipbpk'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'Expense Team <noreply@codingwithmitch.com>'
+DEFAULT_FROM_EMAIL = 'Budget_App Team <noreply@chaurasiyaashish383.com>'
  
 
 
-django_heroku.settings(locals())
+ 
