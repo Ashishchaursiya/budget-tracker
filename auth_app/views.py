@@ -177,7 +177,7 @@ class ResetPasswordView(View):
             
      
               )
-                EmailThread(email).start() 
+                EmailThread(email_obj).start() 
                 messages.success(request,'We have sent to  you  email to reset password')
                 return render(request,'authentication/reset_password.html') 
         except:
