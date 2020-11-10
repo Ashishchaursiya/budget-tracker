@@ -92,7 +92,7 @@ class Register(View):
      
               )
              
-            EmailThread(email).start()
+            EmailThread(email_obj).start()
             messages.success(request,"Account successful created, check your email")
             return render(request,'authentication/register.html')
 
