@@ -145,7 +145,7 @@ MESSAGE_TAGS = {
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'chaurasiyaashish383@gmail.com'
-EMAIL_HOST_PASSWORD = ';@PT7Qd_cBk3Q@Jhgtfffffff43212'
+EMAIL_HOST_PASSWORD = 'qwertyuiop123456'
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'Expense Team <noreply@example.com>'
 
