@@ -11,7 +11,7 @@ import tempfile
 from django.db.models import Sum
 from weasyprint import HTML
 # Create your views here.
-
+#this is home route after login 
 @login_required(login_url='/authentication/login')
 def home(requests):
     income=Income.objects.filter(owner=requests.user)
@@ -21,6 +21,7 @@ def home(requests):
     context={'income':income,'page_obj':page_obj}
     return render(requests,'Income/index.html',context)
 
+# you can add your income using this function
 def Add_Income(requests):
     if requests.method=='GET':
         source=Source.objects.all()
@@ -35,6 +36,7 @@ def Add_Income(requests):
         messages.success(requests,'Successfully income added')
         return redirect('income') 
 
+#you can add your edit income using this function
 def Edit_Income(requests,id):
     income=Income.objects.get(pk=id)
     source=Source.objects.all()
@@ -56,13 +58,14 @@ def Edit_Income(requests,id):
         income.save()
         messages.info(requests,'Successfully updated') 
         return redirect('income') 
-
+#y delete a particular row using this function
 def Delete_Income(requests,id):
     income=Income.objects.get(pk=id)
     income.delete()
     messages.success(requests,'Successfully Deleted') 
     return redirect('income')
 
+#search  income data  through source 
 def Search(requests):
     page_number=requests.GET.get('page')
          
@@ -108,7 +111,7 @@ def income_category_summary(requests):
 def statsView(request):
     return render(request,'expense/stats1.html')      
 
-#output pdf
+# generate output pdf
 def export_pdf(requests):
     response=HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename=Income' + \
