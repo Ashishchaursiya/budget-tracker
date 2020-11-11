@@ -113,7 +113,8 @@ class verificationView(View):
         messages.success(request,'Account activated successfully')
         return redirect('login')
        
-
+        
+#login view       
 class LoginView(View):
     def get(self,request):
         return render(request,'authentication/login.html')  
