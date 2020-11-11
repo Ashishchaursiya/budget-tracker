@@ -16,7 +16,7 @@ def index(requests):
     return render(requests,'expense/home.html')
 
 
-
+# expens home page
 @login_required(login_url='/authentication/login')
 def home(requests):
     expense=Expense.objects.filter(owner=requests.user)
@@ -26,6 +26,7 @@ def home(requests):
     context={'expens':expense,'page_obj':page_obj}
     return render(requests,'expense/index.html',context)
 
+#add expense
 def Add_Expense(requests):
     if requests.method=='GET':
         categories=Category.objects.all()
@@ -40,6 +41,7 @@ def Add_Expense(requests):
         messages.success(requests,'Successfully expense added')
         return redirect('expense') 
 
+#edit expense    
 def Edit_Expense(requests,id):
     expense=Expense.objects.get(pk=id)
     categories=Category.objects.all()
@@ -62,11 +64,16 @@ def Edit_Expense(requests,id):
         messages.info(requests,'Successfully updated') 
         return redirect('expense') 
 
+    #delete expense
 def Delete_Expense(requests,id):
     expense=Expense.objects.get(pk=id)
     expense.delete()
     messages.success(requests,'Successfully Deleted') 
     return redirect('expense')
+
+
+
+#find category of expense
 
 def expense_category_summary(requests):
     today_date=datetime.date.today()
@@ -83,9 +90,7 @@ def expense_category_summary(requests):
         filter_by_category=expense.filter(category=category)
         for item in filter_by_category:
             amount+=item.amount
-
         return amount
-
     for x in expense:
         for y in category_list:
             finalrep[y] = get_expense_category_amount(y)  
@@ -116,12 +121,10 @@ def export_pdf(requests):
     return response    
 
 
-#search
+#search function
 def Search(requests):
     query=requests.POST['search']
     page_number=requests.GET.get('page')
-         
-     
     expense = Expense.objects.filter(category__icontains=query)
     paginator=Paginator(expense,4)
          
@@ -131,8 +134,6 @@ def Search(requests):
     else:
         context={'expens':expense,'page_obj':page_obj,'search':'fgty'}    
 
-         
-    
     return render(requests,'expense/index.html',context)
     
     
